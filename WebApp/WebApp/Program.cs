@@ -1,3 +1,5 @@
+using WebApp.Services;
+
 public class Program
 {
 
@@ -10,7 +12,7 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddControllers();
-        //builder.Services.AddScoped<>();
+        builder.Services.AddScoped<ITripService,TripService>();
         //builder.Services.AddScoped<>();
 
         var app = builder.Build();
