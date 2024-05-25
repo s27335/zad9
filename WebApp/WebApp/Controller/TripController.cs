@@ -40,9 +40,25 @@ public class TripController : ControllerBase
     
 
     [HttpPost("{idTrip:int}/clients")]
-    public async Task<IActionResult> AddClientTrips(int idTrip,AssignClient client,CancellationToken cancellationToken)
+    public async Task<IActionResult> AddClientTrips(int idTrip,AssignClient assignClient,CancellationToken cancellationToken)
     {
-        _tripService.AssignClientToTrip(idTrip, client, cancellationToken);
-        return Ok();
+        var exists = await _tripService.ClientExists(assignClient, cancellationToken);
+        if (exists)
+        {
+            if (!await _tripService.ClientAssigned(assignClient,cancellationToken))
+            {
+                if (await _tripService.TripExists(assignClient,cancellationToken))
+                {
+                    await _tripService.AssignClientToTrip(idTrip, assignClient, cancellationToken);
+                    return Ok();
+                }
+
+                return BadRequest("Dana wycieczka nie istnieje!");
+            }
+
+            return BadRequest("Klient jest juz zapisany na ta wycieczke!");
+        }
+        
+        return BadRequest("Klient o podanym Peselu nie istnieje!");
     }
 }

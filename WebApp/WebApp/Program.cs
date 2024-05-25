@@ -38,3 +38,4 @@ public class Program
 // Insert into country(IdCountry, Name) values (1, 'Poland');
 // Insert into country(IdCountry, Name) values (2, 'Germany');
 // insert into Country_Trip(IdCountry, IdTrip) values (2,1);
+//insert into client (idclient,FirstName,LastName,Email,Telephone,Pesel) values (2,'Adam','Doe', 'adoe@wp.pl', '532-098-123','4342342424');

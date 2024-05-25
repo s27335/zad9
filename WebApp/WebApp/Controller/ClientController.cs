@@ -15,10 +15,16 @@ public class ClientController : ControllerBase
         _clientService = clientService;
     }
 
-    [HttpDelete("{idclient:int}")]
-    public async Task<IActionResult> DeleteClient(CancellationToken cancellationToken)
+    [HttpDelete("{idClient:int}")]
+    public async Task<IActionResult> DeleteClient(int idClient, CancellationToken cancellationToken)
     {
-        return Ok();
+        var deleted = await _clientService.DeleteClient(idClient,cancellationToken);
+
+        if (!deleted)
+        {
+            return BadRequest("Client assigned to trip!");
+        }
+        return Ok("Client deleted");
     }
 
 }

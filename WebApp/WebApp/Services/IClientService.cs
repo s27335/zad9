@@ -2,5 +2,5 @@
 
 public interface IClientService
 {
-    public Task DeleteClient(CancellationToken cancellationToken);
+    public Task<bool> DeleteClient(int idClient, CancellationToken cancellationToken);
 }
